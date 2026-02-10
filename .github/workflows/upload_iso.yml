@@ -3,15 +3,21 @@ name: Upload ISO to Release
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   upload:
     runs-on: ubuntu-latest
     steps:
-      - name: Upload ISO
+      - name: Download ISO from OneDrive
+        run: |
+          curl -L -o LinXP_1_0.iso "https://my.microsoftpersonalcontent.com/personal/d32c82f9e8de8f6e/_layouts/15/download.aspx?UniqueId=122f2466-dbff-4c5c-8448-c028ee2e9d60&Translate=false&tempauth=v1e.eyJzaXRlaWQiOiI1Nzc0MGRiOC02ZTc2LTQxM2ItODlmMS05YmFhYWEwODg2ZDgiLCJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvbXkubWljcm9zb2Z0cGVyc29uYWxjb250ZW50LmNvbUA5MTg4MDQwZC02YzY3LTRjNWItYjExMi0zNmEzMDRiNjZkYWQiLCJleHAiOiIxNzcwNzQ0MTE4In0.7TpJl3bJfl6AFh2KrcoyvYalulD5aj3BbfaRI7Kf3y6ckrvT6mcSR1cmexciXemCazVpb71tV5VBpwTacu9kx8FjxboOckiT2qh1p4emqhMXjTgLb1Wb8rSPFZRh5jfoqV34yoRz5kSF5alrESYS8IJ9bwBVaXCsLPr9iYbNEUoDaB7nirIkwCthc3I0Jk1kdtJbrVFH0dQod25K2NnWHJjKHmOUpcp6Y4xCzjzZEsMHCeGaft3NOo8EgBOfXVqrsa2rYVUtG6kxOODF_T4s2EYjTVrsyHn3iUdNxM5ark4624ljteDWuZc1iY_LjlX2051RRDTbTvckeNokVFo7FGLEDVPYbHKOhhASmyrLXdriY4y7b62q40CJ8KtVvsmi6afVBndcigSGXtQHczsDW2XK0MKJ-vwg7He9QwX4765lySZKjRiFDooUygeM82sV0Qk297tuc-kUzELwbM5lw3VcTfr8G16SUMLtgEiB8dgpohilKhgYtoOJMao0vigbfNDr6ryH9kj18Nwms_T8OA.CwcaKfwWYaovPNzy-UgHEGBvMdd_NAA7hcPuc4WTpgA&ApiVersion=2.0"
+
+      - name: Upload ISO to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: "1.0"
-          files: |
-            LinXP_1_0.iso
+          files: LinXP_1_0.iso
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
