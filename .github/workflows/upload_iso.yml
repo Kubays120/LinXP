@@ -1,0 +1,17 @@
+name: Upload ISO to Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload ISO
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "1.0"
+          files: |
+            LinXP_1_0.iso
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
